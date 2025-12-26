@@ -1,0 +1,78 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20.x'
+  PNPM_VERSION: '10.23.0'
+
+jobs:
+  tests:
+    name: Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install client dependencies
+        run: |
+          cd client
+          pnpm install --frozen-lockfile
+
+      - name: Install e2e dependencies
+        run: |
+          cd e2e
+          pnpm install --frozen-lockfile
+
+      - name: Install Cypress binary
+        run: |
+          cd e2e
+          npx cypress install
+
+      - name: Build application
+        run: |
+          cd client
+          pnpm build
+
+      - name: Run unit tests
+        run: |
+          cd client
+          pnpm test
+
+      - name: Run Cypress component tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: e2e
+          component: true
+          browser: chrome
+
+      - name: Run Cypress e2e tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: e2e
+          start: pnpm --dir ../client dev
+          wait-on: 'http://localhost:5173'
+          wait-on-timeout: 120
+          browser: chrome
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-failures
+          path: |
+            e2e/cypress/screenshots
+            e2e/cypress/videos
+          retention-days: 3

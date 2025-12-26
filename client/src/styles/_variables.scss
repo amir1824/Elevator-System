@@ -1,0 +1,49 @@
+$elevator-idle: #333333;
+$elevator-moving: #e74c3c;
+$elevator-arrived: #2ecc71;
+
+$button-call: #2ecc71;
+$button-waiting: #e74c3c;
+$button-arrived: #ffffff;
+$button-text-arrived: #333333;
+
+$floor-bg: #f8f9fa;
+$floor-border: #e9ecef;
+$shaft-bg: #dee2e6;
+$building-bg: #ffffff;
+
+$timer-text: #ffffff;
+
+$floor-height: clamp(2rem, 4vw, 4rem);
+$elevator-width: clamp(3rem, 6vw, 10.5rem);
+$elevator-height: 3.75rem;
+$button-size: 3.125rem;
+$button-border-radius: 0.5em;
+
+$floor-height-tablet: 3rem;
+$floor-height-mobile: 2.5rem;
+$elevator-width-tablet: 4.5rem;
+$elevator-width-mobile: 3.5rem;
+$button-width-tablet: 4rem;
+$button-width-mobile: 3rem;
+$button-height-tablet: 1.75rem;
+$button-height-mobile: 1.5rem;
+
+$floor-padding: 0.625rem 1.25rem;
+$shaft-gap: 0.25rem;
+
+$movement-speed: 500ms;
+$color-transition: 300ms;
+$arrival-delay: 2000ms;
+
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-size-button: 0.875rem;
+$font-size-timer: 0.6875rem;
+$font-size-floor: 1rem;
+
+$elevator-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+$button-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$building-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+$z-elevator: 10;
+$z-controls: 100;

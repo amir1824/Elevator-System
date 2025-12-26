@@ -1,0 +1,156 @@
+@use '../../styles/variables' as *;
+
+.building {
+    background: transparent;
+    border-radius: 0.5em;
+    padding: clamp(0.5rem, 3vw, 2.5rem);
+    padding-bottom: calc(clamp(0.5rem, 3vw, 2.5rem) + env(safe-area-inset-bottom));
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tableWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+    
+    &::-webkit-scrollbar { 
+        height: 8px;
+        display: none;
+    }
+    &::-webkit-scrollbar-track { 
+        background: #f1f1f1; 
+        border-radius: 4px; 
+    }
+    &::-webkit-scrollbar-thumb { 
+        background: #888; 
+        border-radius: 4px;
+        &:hover { background: #555; }
+    }
+}
+
+.table { border-collapse: collapse; border-spacing: 0; width: max-content; min-width: 100%; }
+.tbody { display: flex; flex-direction: column; width: max-content; min-width: 100%; }
+.row { 
+    height: $floor-height; 
+    display: flex;
+    position: relative;
+    z-index: 1;
+    width: max-content;
+    min-width: 100%;
+}
+
+.leftSticky {
+    position: sticky;
+    left: 0;
+    background: #e8e8e8;
+    z-index: 3;
+    flex-shrink: 0;
+}
+
+.rightSticky {
+    position: sticky;
+    right: 0;
+    background: #e8e8e8;
+    z-index: 3;
+    flex-shrink: 0;
+}
+
+.elevatorsContainer {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    flex: 0 0 auto;
+}
+
+.floorLabel {
+    padding: 0 clamp(0.5rem, 1.5vw, 1rem) 0 0;
+    text-align: right;
+    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: clamp(2.5rem, 8vw, 5rem);
+    width: clamp(2.5rem, 8vw, 5rem);
+}
+
+.shaft {
+    width: clamp(3rem, 7vw, 6rem);
+    height: $floor-height;
+    background: white;
+    border: 0.0625em solid #e0e0e0;
+    border-top: none;
+    position: relative;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+.row:first-child .shaft { border-top: 0.0625em solid #e0e0e0; }
+
+.shaftContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.3125rem;
+    position: relative;
+    overflow: visible;
+}
+
+.elevatorWrapper {
+    --offset: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(-50%, calc(-50% + var(--offset) * $floor-height), 0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.timerDisplay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(0.45rem, 1vw, 0.65rem);
+    color: #333;
+    white-space: nowrap;
+}
+
+.buttonCell { 
+    padding-left: clamp(0.4rem, 1.5vw, 1rem);
+    padding-right: clamp(0.4rem, 1.5vw, 1rem);
+    display: flex;
+    align-items: center;
+    min-width: clamp(4rem, 10vw, 6rem);
+    width: clamp(4rem, 10vw, 6rem);
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .building { padding: clamp(0.5rem, 2vw, 1rem); }
+    .tableWrapper {
+        &::-webkit-scrollbar { height: 6px; }
+    }
+}
+
+@media (max-width: 480px) {
+    .building { padding: 0.5rem; }
+    .tableWrapper {
+        &::-webkit-scrollbar { height: 5px; }
+    }
+}
